@@ -1,37 +1,26 @@
-allprojects { projects ->
-    apply plugin: 'idea'
-    defaultTasks 'clean', 'build'
+defaultTasks 'clean', 'build'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group = 'org.suggs.sandbox.algorithms'
+
+repositories {
+    jcenter()
+    mavenCentral()
 }
 
-task wrapper(type: Wrapper) {
-    description = 'Generates gradlew scripts for NIX and win envs'
-    gradleVersion = '1.12'
+idea.module{
+	downloadSources = true
 }
 
-subprojects { subprojects ->
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
 
-    apply from: "$rootDir/gradle/libraries.gradle"
-    apply from: "$rootDir/gradle/ide.gradle"
-    apply plugin: 'java'
+    runtime 'org.slf4j:slf4j-log4j12:1.7.5',
+            'log4j:log4j:1.2.17'
 
-    group = 'org.suggs.sandbox.algorithms'
-
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-
-    dependencies {
-        compile libs.slf4jApi
-
-        runtime libs.logback
-
-        testCompile libs.test.junit,
-                libs.test.mockito
-    }
+    testCompile 'junit:junit:4.11',
+        'org.mockito:mockito-all:1.9.5'
 }
 
-project('basic') {
-    dependencies {
-    }
-}
