@@ -33,7 +33,7 @@ public class QuickFind implements UnionFind {
         return false;
     }
 
-    public String dumpArray(){
+    public String toString(){
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < intArray.length; i++){
             builder.append(i).append(":").append(intArray[i]).append(" ");
