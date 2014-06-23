@@ -31,8 +31,25 @@ public abstract class AbstractUnionFindTest {
     @Test
     public void hasConnectionsAfterUnion() {
         unionFind.union(0, 1);
-        assertThat(unionFind.connected(0, 1), is(true));
         LOG.debug("UnionFind with a single connection: {}", unionFind.toString());
+        assertThat(unionFind.connected(0, 1), is(true));
     }
 
+    @Test
+    public void supportsTransitiveUnions() {
+        unionFind.union(0, 1);
+        unionFind.union(1, 2);
+        LOG.debug("UnionFind with a transitive connection: {}", unionFind.toString());
+        assertThat(unionFind.connected(0, 2), is(true));
+    }
+
+    @Test
+    public void supportsRecuriveUnions() {
+        unionFind.union(0, 1);
+        unionFind.union(1, 2);
+        unionFind.union(2, 3);
+        unionFind.union(3, 0);
+        LOG.debug("UnionFind with a recursive connection: {}", unionFind.toString());
+        assertThat(unionFind.connected(1, 3), is(true));
+    }
 }

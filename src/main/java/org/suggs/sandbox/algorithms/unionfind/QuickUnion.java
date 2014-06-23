@@ -18,11 +18,27 @@ public class QuickUnion implements UnionFind {
 
     @Override
     public void union(int p, int q) {
-
+        int i = findRoot(p);
+        intArray[i] = findRoot(q);
     }
 
     @Override
     public boolean connected(int p, int q) {
-        return false;
+        return findRoot(p) == findRoot(q);
+    }
+
+    private int findRoot(int id) {
+        while (id != intArray[id]) {
+            id = intArray[id];
+        }
+        return id;
+    }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < intArray.length; i++) {
+            builder.append(i).append(":").append(intArray[i]).append(" ");
+        }
+        return builder.toString();
     }
 }
