@@ -4,4 +4,4 @@ This repo is really just a sandbox for me to play around with algorithms I have 
 
 The following are included:
 
-    * [Game of Life](docs/GameOfLife.md)
+* [Game of Life](docs/GameOfLife.md)
