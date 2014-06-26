@@ -1,25 +1,20 @@
 package org.suggs.sandbox.algorithms.unionfind;
 
 
+import static org.suggs.sandbox.algorithms.unionfind.InitialisedArrayBuilder.anInitialisedArray;
+
 public class QuickUnion implements UnionFind {
 
-    private final int[] intArray;
+    private final int[] nodeArray;
 
-    public QuickUnion(int n) {
-        intArray = new int[n];
-        initialiseArray(n);
-    }
-
-    private void initialiseArray(int n) {
-        for (int i = 0; i < n; i++) {
-            intArray[i] = i;
-        }
+    public QuickUnion(int numberOfNodes) {
+        nodeArray = anInitialisedArray().ofLength(numberOfNodes).build();
     }
 
     @Override
     public void union(int p, int q) {
         int i = findRoot(p);
-        intArray[i] = findRoot(q);
+        nodeArray[i] = findRoot(q);
     }
 
     @Override
@@ -28,16 +23,16 @@ public class QuickUnion implements UnionFind {
     }
 
     private int findRoot(int id) {
-        while (id != intArray[id]) {
-            id = intArray[id];
+        while (id != nodeArray[id]) {
+            id = nodeArray[id];
         }
         return id;
     }
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < intArray.length; i++) {
-            builder.append(i).append(":").append(intArray[i]).append(" ");
+        for (int i = 0; i < nodeArray.length; i++) {
+            builder.append(i).append(":").append(nodeArray[i]).append(" ");
         }
         return builder.toString();
     }

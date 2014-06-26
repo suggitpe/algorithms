@@ -2,30 +2,31 @@ package org.suggs.sandbox.algorithms.unionfind;
 
 import static org.suggs.sandbox.algorithms.unionfind.InitialisedArrayBuilder.anInitialisedArray;
 
-public class QuickFind implements UnionFind {
+public class WeightedQuickUnion implements UnionFind {
 
     private final int[] nodeArray;
+    private final int[] sizeArray;
 
-    public QuickFind(int numberOfNodes) {
+    public WeightedQuickUnion(int numberOfNodes) {
         nodeArray = anInitialisedArray().ofLength(numberOfNodes).build();
     }
 
     @Override
     public void union(int p, int q) {
-        int checker = nodeArray[p];
-        for (int i = 0; i < nodeArray.length; i++) {
-            if (nodeArray[i] == checker) {
-                nodeArray[i] = nodeArray[q];
-            }
-        }
+        int i = findRootOf(p);
+        nodeArray[i] = findRootOf(q);
     }
 
     @Override
     public boolean connected(int p, int q) {
-        if (nodeArray[p] == nodeArray[q]) {
-            return true;
+        return findRootOf(p) == findRootOf(q);
+    }
+
+    private int findRootOf(int node) {
+        while (node != nodeArray[node]) {
+            node = nodeArray[node];
         }
-        return false;
+        return node;
     }
 
     public String toString() {
