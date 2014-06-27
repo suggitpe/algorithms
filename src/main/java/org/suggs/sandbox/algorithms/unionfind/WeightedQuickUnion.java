@@ -5,7 +5,6 @@ import static org.suggs.sandbox.algorithms.unionfind.InitialisedArrayBuilder.anI
 public class WeightedQuickUnion implements UnionFind {
 
     private final int[] nodeArray;
-    private final int[] sizeArray;
 
     public WeightedQuickUnion(int numberOfNodes) {
         nodeArray = anInitialisedArray().ofLength(numberOfNodes).build();
