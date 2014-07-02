@@ -13,9 +13,11 @@ public class GameOfLife {
             for (int x = 0; x < newGrid.getSize(); x++) {
                 int aliveCellCount = grid.countSurroundingLiveCellsFrom(x, y);
                 if (grid.isDeadAt(x, y) && aliveCellCount == 3) {
-                    newGrid.resurrectCellAt(x, y);
+                    newGrid.giveBirthToCellAt(x, y);
                 } else if (grid.isAliveAt(x, y) && (aliveCellCount == 2 || aliveCellCount == 3)) {
-                    newGrid.resurrectCellAt(x, y);
+                    newGrid.cellStaysAliveAt(x, y);
+                } else {
+                    newGrid.cellIsDeadAt(x, y);
                 }
             }
         }

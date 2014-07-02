@@ -22,11 +22,15 @@ public class Grid {
         return deadCellCount;
     }
 
-    public void resurrectCellAt(int x, int y) {
+    public void giveBirthToCellAt(int x, int y) {
         grid[x][y] = true;
     }
 
-    public void killCellAt(int x, int y) {
+    public void cellStaysAliveAt(int x, int y) {
+        grid[x][y] = true;
+    }
+
+    public void cellIsDeadAt(int x, int y) {
         grid[x][y] = false;
     }
 
@@ -84,10 +88,21 @@ public class Grid {
         }
 
         Grid grid = (Grid) o;
-        if (toString().equals(grid.toString())) {
+        if (twoGridsMatch(grid)) {
             return true;
         }
         return false;
+    }
+
+    private boolean twoGridsMatch(Grid otherGrid) {
+        for (int y = 0; y < gridSize; y++) {
+            for (int x = 0; x < gridSize; x++) {
+                if (grid[x][y] != otherGrid.grid[x][y]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

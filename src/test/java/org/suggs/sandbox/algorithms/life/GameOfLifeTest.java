@@ -8,12 +8,9 @@ import static org.suggs.sandbox.algorithms.life.GridBuilder.aGrid;
 
 public class GameOfLifeTest {
 
-    private static int GRID_SIZE = 5;
-
     @Test
-    public void resurrectsCellsWithThreeNeighbours(){
+    public void resurrectsCellsWithThreeNeighbours() {
         Grid gridBefore = aGrid()
-                .withSquareSizeOf(GRID_SIZE)
                 .fromStringGrid("...@.\n" +
                                 ".....\n" +
                                 ".@@..\n" +
@@ -21,7 +18,6 @@ public class GameOfLifeTest {
                                 ".....\n"
                 ).build();
         Grid gridAfter = aGrid()
-                .withSquareSizeOf(GRID_SIZE)
                 .fromStringGrid(".....\n" +
                                 "..@..\n" +
                                 ".....\n" +
@@ -33,9 +29,8 @@ public class GameOfLifeTest {
     }
 
     @Test
-    public void retainsAliveCellsWithTwoLiveNeighbours(){
+    public void retainsAliveCellsWithTwoLiveNeighbours() {
         Grid gridBefore = aGrid()
-                .withSquareSizeOf(GRID_SIZE)
                 .fromStringGrid(".....\n" +
                                 "...@.\n" +
                                 "..@..\n" +
@@ -43,7 +38,6 @@ public class GameOfLifeTest {
                                 ".....\n"
                 ).build();
         Grid gridAfter = aGrid()
-                .withSquareSizeOf(GRID_SIZE)
                 .fromStringGrid(".....\n" +
                                 ".....\n" +
                                 "..@..\n" +
@@ -55,9 +49,8 @@ public class GameOfLifeTest {
     }
 
     @Test
-    public void retainsAliveCellsWithThreeNeighbours(){
+    public void retainsAliveCellsWithThreeNeighbours() {
         Grid gridBefore = aGrid()
-                .withSquareSizeOf(GRID_SIZE)
                 .fromStringGrid(".....\n" +
                                 ".@.@.\n" +
                                 "..@..\n" +
@@ -65,7 +58,6 @@ public class GameOfLifeTest {
                                 ".....\n"
                 ).build();
         Grid gridAfter = aGrid()
-                .withSquareSizeOf(GRID_SIZE)
                 .fromStringGrid(".....\n" +
                                 "..@..\n" +
                                 ".@@..\n" +
@@ -75,8 +67,6 @@ public class GameOfLifeTest {
         GameOfLife game = new GameOfLife(gridBefore);
         assertThat(game.iterate(), equalTo(gridAfter));
     }
-
-
 
 
 }

@@ -19,7 +19,6 @@ public class GridTest {
     @Before
     public void setup() {
         gridBuilder = aGrid()
-                .withSquareSizeOf(GRID_SIZE)
                 .fromStringGrid(".....\n" +
                                 ".....\n" +
                                 ".....\n" +
@@ -37,22 +36,22 @@ public class GridTest {
     @Test
     public void canResurrectCells() {
         Grid grid = gridBuilder.build();
-        grid.resurrectCellAt(0, 0);
+        grid.giveBirthToCellAt(0, 0);
         assertThat(grid.isAliveAt(0, 0), is(true));
     }
 
     @Test
     public void canKillCells() {
         Grid grid = gridBuilder.build();
-        grid.resurrectCellAt(1, 2);
-        grid.killCellAt(1, 2);
+        grid.giveBirthToCellAt(1, 2);
+        grid.cellIsDeadAt(1, 2);
         assertThat(grid.isDeadAt(1, 2), is(true));
     }
 
     @Test
     public void killingADeadCellStaysDead() {
         Grid grid = gridBuilder.build();
-        grid.killCellAt(0, 0);
+        grid.cellIsDeadAt(0, 0);
         assertThat(grid.isDeadAt(0, 0), is(true));
     }
 

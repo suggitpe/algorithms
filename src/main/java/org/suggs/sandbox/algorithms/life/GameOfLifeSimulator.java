@@ -1,12 +1,13 @@
 package org.suggs.sandbox.algorithms.life;
 
+import java.io.IOException;
+
 import static org.suggs.sandbox.algorithms.life.GridBuilder.aGrid;
 
 public class GameOfLifeSimulator {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Grid startingGrid = aGrid()
-                .withSquareSizeOf(10)
                 .fromStringGrid(buildStartingGridExample())
                 .build();
 
@@ -14,6 +15,7 @@ public class GameOfLifeSimulator {
         int i = 0;
         do {
             Grid nextLife = game.iterate();
+            Runtime.getRuntime().exec("clear");
             System.out.println("--------------------");
             System.out.println("Iteration: " + ++i);
             System.out.println(nextLife);
@@ -22,23 +24,21 @@ public class GameOfLifeSimulator {
     }
 
     private static String buildStartingGridExample() {
-        StringBuilder grid = new StringBuilder();
-        grid.append("..........\n");
-        grid.append("..........\n");
-        grid.append("..........\n");
-        grid.append("..........\n");
-        grid.append("..........\n");
-        grid.append("..........\n");
-        grid.append("..........\n");
-        grid.append("..@.......\n");
-        grid.append("..@@......\n");
-        grid.append(".@.@......\n");
-        return grid.toString();
+        return "..........\n" +
+                "..........\n" +
+                "..........\n" +
+                "..........\n" +
+                "..........\n" +
+                "..........\n" +
+                "..........\n" +
+                "..@.......\n" +
+                "..@@......\n" +
+                ".@.@......\n";
     }
 
     private static void pause(int i) {
         try {
-            Thread.sleep(i*100);
+            Thread.sleep(i * 100);
         } catch (InterruptedException e) {
             // nadda
         }
