@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.suggs.sandbox.algorithms.life.GameOfLife.iterateGameOfLifeGrid;
 import static org.suggs.sandbox.algorithms.life.GridBuilder.aGrid;
 
 public class GameOfLifeTest {
@@ -24,8 +25,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        GameOfLife game = new GameOfLife(gridBefore);
-        assertThat(game.iterate(), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
     }
 
     @Test
@@ -44,8 +44,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        GameOfLife game = new GameOfLife(gridBefore);
-        assertThat(game.iterate(), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
     }
 
     @Test
@@ -64,8 +63,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        GameOfLife game = new GameOfLife(gridBefore);
-        assertThat(game.iterate(), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
     }
 
 

@@ -2,23 +2,23 @@ package org.suggs.sandbox.algorithms.life;
 
 import java.io.IOException;
 
+import static org.suggs.sandbox.algorithms.life.GameOfLife.iterateGameOfLifeGrid;
 import static org.suggs.sandbox.algorithms.life.GridBuilder.aGrid;
 
 public class GameOfLifeSimulator {
 
     public static void main(String[] args) throws IOException {
-        Grid startingGrid = aGrid()
+        Grid grid = aGrid()
                 .fromStringGrid(buildStartingGridExample())
                 .build();
 
-        GameOfLife game = new GameOfLife(startingGrid);
         int i = 0;
         do {
-            Grid nextLife = game.iterate();
+            grid = iterateGameOfLifeGrid(grid);
             Runtime.getRuntime().exec("clear");
             System.out.println("--------------------");
             System.out.println("Iteration: " + ++i);
-            System.out.println(nextLife);
+            System.out.println(grid);
             pause(1);
         } while (true);
     }

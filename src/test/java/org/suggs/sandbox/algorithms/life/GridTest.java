@@ -122,4 +122,16 @@ public class GridTest {
         LOG.debug("Grid dumped:\n" + grid.toString());
         assertThat(grid.toString(), equalTo(gridExample));
     }
+
+    @Test
+    public void gridWithAliveDensityOfZeroHasNoLiveCells() {
+        Grid grid = aGrid().withASizeOf(10).withAliveDensityOf(0.0).build();
+        assertThat(grid.getAliveCellCount(), is(0));
+    }
+
+    @Test
+    public void gridWithAliveDensityOfOneHasNoAliveCells() {
+        Grid grid = aGrid().withASizeOf(10).withAliveDensityOf(1.0).build();
+        assertThat(grid.getDeadCellCount(), is(0));
+    }
 }

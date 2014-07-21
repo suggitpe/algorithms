@@ -1,13 +1,34 @@
 package org.suggs.sandbox.algorithms.life;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static java.lang.Math.random;
+
 public class Grid {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Grid.class);
     private final int gridSize;
     private final boolean[][] grid;
 
     public Grid(int size) {
         gridSize = size;
         grid = new boolean[size][size];
+    }
+
+    public Grid(int size, double aliveDensity) {
+        this(size);
+        populateGridWithAliveDensity(aliveDensity);
+    }
+
+    private void populateGridWithAliveDensity(double aliveDensity) {
+        for (int y = 0; y < grid.length; y++) {
+            for (int x = 0; x < grid[0].length; x++) {
+                if (aliveDensity > random()) {
+                    giveBirthToCellAt(x, y);
+                }
+            }
+        }
     }
 
     public int getDeadCellCount() {
@@ -20,6 +41,10 @@ public class Grid {
             }
         }
         return deadCellCount;
+    }
+
+    public int getAliveCellCount(){
+        return (gridSize * gridSize) - getDeadCellCount();
     }
 
     public void giveBirthToCellAt(int x, int y) {

@@ -1,13 +1,10 @@
 package org.suggs.sandbox.algorithms.life;
 
 public class GameOfLife {
-    private Grid grid;
 
-    public GameOfLife(Grid aStartingGrid) {
-        grid = aStartingGrid;
-    }
+    private GameOfLife(){}
 
-    public Grid iterate() {
+    public static Grid iterateGameOfLifeGrid(Grid grid) {
         Grid newGrid = new Grid(grid.getSize());
         for (int y = 0; y < newGrid.getSize(); y++) {
             for (int x = 0; x < newGrid.getSize(); x++) {
@@ -21,7 +18,6 @@ public class GameOfLife {
                 }
             }
         }
-        grid = newGrid;
         return newGrid;
     }
 }
