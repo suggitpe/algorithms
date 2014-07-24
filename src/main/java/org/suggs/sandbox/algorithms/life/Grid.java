@@ -21,29 +21,37 @@ public class Grid {
         populateGridWithAliveDensity(aliveDensity);
     }
 
-    private void populateGridWithAliveDensity(double aliveDensity) {
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[0].length; x++) {
-                if (aliveDensity > random()) {
-                    giveBirthToCellAt(x, y);
-                }
+    public interface CellAction {
+        public void doToCellAt(int x, int y);
+    }
+
+    public void forEachCellInTheGrid(CellAction action) {
+        for (int y = 0; y < gridSize; y++) {
+            for (int x = 0; x < gridSize; x++) {
+                action.doToCellAt(x, y);
             }
         }
+    }
+
+    private void populateGridWithAliveDensity(double aliveDensity) {
+        forEachCellInTheGrid((x, y) -> {
+            if (aliveDensity > random()) {
+                giveBirthToCellAt(x, y);
+            }
+        });
     }
 
     public int getDeadCellCount() {
-        int deadCellCount = 0;
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[x].length; y++) {
-                if (grid[x][y] == false) {
-                    deadCellCount++;
-                }
+        final int[] deadCellCount = {0};
+        forEachCellInTheGrid((x, y) -> {
+            if (isDeadAt(x, y)) {
+                deadCellCount[0]++;
             }
-        }
-        return deadCellCount;
+        });
+        return deadCellCount[0];
     }
 
-    public int getAliveCellCount(){
+    public int getAliveCellCount() {
         return (gridSize * gridSize) - getDeadCellCount();
     }
 
@@ -119,15 +127,16 @@ public class Grid {
         return false;
     }
 
-    private boolean twoGridsMatch(Grid otherGrid) {
-        for (int y = 0; y < gridSize; y++) {
-            for (int x = 0; x < gridSize; x++) {
-                if (grid[x][y] != otherGrid.grid[x][y]) {
-                    return false;
-                }
+    private boolean twoGridsMatch(final Grid otherGrid) {
+        final boolean[] theyMatch = {true};
+        forEachCellInTheGrid((x, y) -> {
+            if (grid[x][y] != otherGrid.grid[x][y]) {
+                theyMatch[0] = false;
+                return;
             }
-        }
-        return true;
+        });
+        return theyMatch[0];
+
     }
 
     @Override

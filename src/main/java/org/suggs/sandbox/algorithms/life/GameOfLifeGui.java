@@ -23,7 +23,7 @@ public class GameOfLifeGui extends Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameOfLifeGui.class);
     private static final int CELL_SIZE = 10;
-    private static final int CELL_COUNT = 64;
+    private static final int CELL_COUNT = 76;
     private static final int SIZE = CELL_COUNT * CELL_SIZE;
     private final Timeline timeline;
     private static final int PAUSE_LENGTH = 100;
@@ -31,7 +31,7 @@ public class GameOfLifeGui extends Application {
 
     private Grid grid = aGrid()
             .withASizeOf(CELL_COUNT)
-            .withAliveDensityOf(0.4)
+            .withAliveDensityOf(0.2)
             .build();
     private Pane rootPane;
 
@@ -60,28 +60,24 @@ public class GameOfLifeGui extends Application {
     }
 
     private void populatePaneWithGrid() {
-        for (int y = 0; y < CELL_COUNT; y++) {
-            for (int x = 0; x < CELL_COUNT; x++) {
-                StackPane cell = createDeadCellAt(x, y);
-                cellMap.put(referenceOf(x, y), cell);
-                rootPane.getChildren().add(cell);
-            }
-        }
+        grid.forEachCellInTheGrid((x, y) -> {
+            StackPane cell = createDeadCellAt(x, y);
+            cellMap.put(referenceOf(x, y), cell);
+            rootPane.getChildren().add(cell);
+        });
     }
 
     private void iterateBoard() {
         LOG.info("Iterating");
         grid = iterateGameOfLifeGrid(grid);
-        for (int y = 0; y < CELL_COUNT; y++) {
-            for (int x = 0; x < CELL_COUNT; x++) {
-                if (grid.isAliveAt(x, y)) {
-                    cellMap.get(referenceOf(x, y)).setId("alive-cell");
-                } else {
-                    cellMap.get(referenceOf(x, y)).setId("dead-cell");
-                }
-            }
-        }
 
+        grid.forEachCellInTheGrid((x, y) -> {
+            if (grid.isAliveAt(x, y)) {
+                cellMap.get(referenceOf(x, y)).setId("alive-cell");
+            } else {
+                cellMap.get(referenceOf(x, y)).setId("dead-cell");
+            }
+        });
     }
 
     private StackPane createDeadCellAt(int x, int y) {
