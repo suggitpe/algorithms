@@ -2,6 +2,8 @@ package org.suggs.sandbox.algorithms.socialgraph;
 
 import org.junit.Test;
 
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.suggs.sandbox.algorithms.socialgraph.GraphTrawler.forGraph;
 import static org.suggs.sandbox.algorithms.socialgraph.SocialGraphMemberBuilder.aSocialGraphMemberWithANameOf;
@@ -10,8 +12,8 @@ public class SocialGraphTest {
 
     @Test
     public void listsNamesOfFriendsForASingleLayeredGraph() {
-        Member graph = createSimpleSocialGraph();
-        assertThat(forGraph(graph).listAllFriends()).hasSize(2).contains("Allen", "Bob");
+        Member member = createSimpleSocialGraph();
+        assertThat(forGraph(member).allFriends().collect(Collectors.toList())).hasSize(2).contains("Allen", "Bob");
     }
 
     @Test

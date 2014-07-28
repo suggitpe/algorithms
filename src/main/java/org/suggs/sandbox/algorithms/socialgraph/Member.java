@@ -3,11 +3,12 @@ package org.suggs.sandbox.algorithms.socialgraph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Member {
 
     private final String name;
-    private List<Member> friends = new ArrayList<>();
+    private List<Member> friends = new ArrayList<Member>();
 
     public Member(String aName) {
         name = aName;
@@ -21,8 +22,8 @@ public class Member {
         return name;
     }
 
-    public List<Member> getFriends() {
-        return friends;
+    public Stream<Member> getFriends() {
+        return friends.stream();
     }
 
     public void addFriends(List<Member> someFriends) {
