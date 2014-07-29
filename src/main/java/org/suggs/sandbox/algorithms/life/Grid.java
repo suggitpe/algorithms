@@ -1,19 +1,15 @@
 package org.suggs.sandbox.algorithms.life;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static java.lang.Math.random;
 
 public class Grid {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Grid.class);
     private final int gridSize;
-    private final boolean[][] grid;
+    private final boolean[] grid;
 
     public Grid(int size) {
         gridSize = size;
-        grid = new boolean[size][size];
+        grid = new boolean[size * size];
     }
 
     public Grid(int size, double aliveDensity) {
@@ -56,22 +52,22 @@ public class Grid {
     }
 
     public void giveBirthToCellAt(int x, int y) {
-        grid[x][y] = true;
+        grid[y * gridSize + x] = true;
     }
 
     public void cellStaysAliveAt(int x, int y) {
-        grid[x][y] = true;
+        grid[y * gridSize + x] = true;
     }
 
     public void cellIsDeadAt(int x, int y) {
-        grid[x][y] = false;
+        grid[y * gridSize + x] = false;
     }
 
     public boolean isAliveAt(int x, int y) {
         if (x < 0 || y < 0 || x >= gridSize || y >= gridSize) {
             return false;
         }
-        return grid[x][y];
+        return grid[y * gridSize + x];
     }
 
     public boolean isDeadAt(int x, int y) {
@@ -94,8 +90,8 @@ public class Grid {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[y].length; x++) {
+        for (int y = 0; y < gridSize; y++) {
+            for (int x = 0; x < gridSize; x++) {
                 if (isAliveAt(x, y)) {
                     builder.append("@");
                 } else {
@@ -130,7 +126,7 @@ public class Grid {
     private boolean twoGridsMatch(final Grid otherGrid) {
         final boolean[] theyMatch = {true};
         forEachCellInTheGrid((x, y) -> {
-            if (grid[x][y] != otherGrid.grid[x][y]) {
+            if (grid[y * gridSize + x] != otherGrid.grid[y * gridSize + x]) {
                 theyMatch[0] = false;
                 return;
             }

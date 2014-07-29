@@ -31,7 +31,7 @@ public class GameOfLifeGui extends Application {
 
     private Grid grid = aGrid()
             .withASizeOf(CELL_COUNT)
-            .withAliveDensityOf(0.2)
+            .withAliveDensityOf(0.3)
             .build();
     private Pane rootPane;
 
@@ -68,7 +68,6 @@ public class GameOfLifeGui extends Application {
     }
 
     private void iterateBoard() {
-        LOG.info("Iterating");
         grid = iterateGameOfLifeGrid(grid);
 
         grid.forEachCellInTheGrid((x, y) -> {
