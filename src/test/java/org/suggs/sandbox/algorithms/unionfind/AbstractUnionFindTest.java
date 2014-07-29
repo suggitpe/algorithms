@@ -6,9 +6,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public abstract class AbstractUnionFindTest {
 
@@ -24,7 +23,7 @@ public abstract class AbstractUnionFindTest {
 
     @Test
     public void hasNoConnectionsOnInitialisation() {
-        assertThat(unionFind.connected(0, 1), is(not(true)));
+        assertThat(unionFind.connected(0, 1)).isFalse();
         LOG.debug(getClass().getSimpleName() + " with no connections: {}", unionFind.toString());
     }
 
@@ -32,7 +31,7 @@ public abstract class AbstractUnionFindTest {
     public void hasConnectionsAfterUnion() {
         unionFind.union(0, 1);
         LOG.debug(getClass().getSimpleName() + " with a single connection: {}", unionFind.toString());
-        assertThat(unionFind.connected(0, 1), is(true));
+        assertThat(unionFind.connected(0, 1)).isTrue();
     }
 
     @Test
@@ -40,7 +39,7 @@ public abstract class AbstractUnionFindTest {
         unionFind.union(0, 1);
         unionFind.union(1, 2);
         LOG.debug(getClass().getSimpleName() + " with a transitive connection: {}", unionFind.toString());
-        assertThat(unionFind.connected(0, 2), is(true));
+        assertThat(unionFind.connected(0, 2)).isTrue();
     }
 
     @Test
@@ -50,6 +49,6 @@ public abstract class AbstractUnionFindTest {
         unionFind.union(2, 3);
         unionFind.union(3, 0);
         LOG.debug(getClass().getSimpleName() + " with a recursive connection: {}", unionFind.toString());
-        assertThat(unionFind.connected(1, 3), is(true));
+        assertThat(unionFind.connected(1, 3)).isTrue();
     }
 }

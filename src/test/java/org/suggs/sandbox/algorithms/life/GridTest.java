@@ -5,9 +5,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.suggs.sandbox.algorithms.life.GridBuilder.aGrid;
 
 public class GridTest {
@@ -30,14 +28,14 @@ public class GridTest {
     @Test
     public void initialisesAsASquareGridOfDeadCells() {
         Grid grid = gridBuilder.build();
-        assertThat(grid.getDeadCellCount(), is(GRID_SIZE * GRID_SIZE));
+        assertThat(grid.getDeadCellCount()).isEqualTo(GRID_SIZE * GRID_SIZE);
     }
 
     @Test
     public void canResurrectCells() {
         Grid grid = gridBuilder.build();
         grid.giveBirthToCellAt(0, 0);
-        assertThat(grid.isAliveAt(0, 0), is(true));
+        assertThat(grid.isAliveAt(0, 0)).isTrue();
     }
 
     @Test
@@ -45,14 +43,14 @@ public class GridTest {
         Grid grid = gridBuilder.build();
         grid.giveBirthToCellAt(1, 2);
         grid.cellIsDeadAt(1, 2);
-        assertThat(grid.isDeadAt(1, 2), is(true));
+        assertThat(grid.isDeadAt(1, 2)).isTrue();
     }
 
     @Test
     public void killingADeadCellStaysDead() {
         Grid grid = gridBuilder.build();
         grid.cellIsDeadAt(0, 0);
-        assertThat(grid.isDeadAt(0, 0), is(true));
+        assertThat(grid.isDeadAt(0, 0)).isTrue();
     }
 
     @Test
@@ -66,7 +64,7 @@ public class GridTest {
                 )
                 .build();
 
-        assertThat(grid.countSurroundingLiveCellsFrom(3, 3), is(2));
+        assertThat(grid.countSurroundingLiveCellsFrom(3, 3)).isEqualTo(2);
     }
 
     @Test
@@ -79,7 +77,7 @@ public class GridTest {
                                 ".....\n"
                 )
                 .build();
-        assertThat(grid.countSurroundingLiveCellsFrom(0, 0), is(3));
+        assertThat(grid.countSurroundingLiveCellsFrom(0, 0)).isEqualTo(3);
     }
 
     @Test
@@ -92,7 +90,7 @@ public class GridTest {
                                 ".....\n"
                 )
                 .build();
-        assertThat(grid.countSurroundingLiveCellsFrom(3, 0), is(5));
+        assertThat(grid.countSurroundingLiveCellsFrom(3, 0)).isEqualTo(5);
     }
 
     @Test
@@ -105,7 +103,7 @@ public class GridTest {
                                 ".....\n"
                 )
                 .build();
-        assertThat(grid.countSurroundingLiveCellsFrom(4, 1), is(5));
+        assertThat(grid.countSurroundingLiveCellsFrom(4, 1)).isEqualTo(5);
     }
 
     @Test
@@ -120,18 +118,18 @@ public class GridTest {
                 .fromStringGrid(gridExample)
                 .build();
         LOG.debug("Grid dumped:\n" + grid.toString());
-        assertThat(grid.toString(), equalTo(gridExample));
+        assertThat(grid.toString()).isEqualTo(gridExample);
     }
 
     @Test
     public void gridWithAliveDensityOfZeroHasNoLiveCells() {
         Grid grid = aGrid().withASizeOf(10).withAliveDensityOf(0.0).build();
-        assertThat(grid.getAliveCellCount(), is(0));
+        assertThat(grid.getAliveCellCount()).isEqualTo(0);
     }
 
     @Test
     public void gridWithAliveDensityOfOneHasNoAliveCells() {
         Grid grid = aGrid().withASizeOf(10).withAliveDensityOf(1.0).build();
-        assertThat(grid.getDeadCellCount(), is(0));
+        assertThat(grid.getDeadCellCount()).isEqualTo(0);
     }
 }

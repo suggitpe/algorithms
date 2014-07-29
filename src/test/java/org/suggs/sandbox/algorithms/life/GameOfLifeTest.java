@@ -2,8 +2,7 @@ package org.suggs.sandbox.algorithms.life;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.suggs.sandbox.algorithms.life.GameOfLife.iterateGameOfLifeGrid;
 import static org.suggs.sandbox.algorithms.life.GridBuilder.aGrid;
 
@@ -25,7 +24,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore)).isEqualTo(gridAfter);
     }
 
     @Test
@@ -44,7 +43,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore)).isEqualTo(gridAfter);
     }
 
     @Test
@@ -63,7 +62,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore)).isEqualTo(gridAfter);
     }
 
     @Test
@@ -82,7 +81,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore)).isEqualTo(gridAfter);
     }
 
     @Test
@@ -101,8 +100,7 @@ public class GameOfLifeTest {
                                 ".....\n" +
                                 ".....\n"
                 ).build();
-        assertThat(iterateGameOfLifeGrid(gridBefore), equalTo(gridAfter));
+        assertThat(iterateGameOfLifeGrid(gridBefore)).isEqualTo(gridAfter);
     }
-
 
 }
