@@ -1,7 +1,7 @@
 defaultTasks 'clean', 'build'
 
+apply from: "$rootDir/dependencies.gradle"
 apply plugin: 'java'
-apply plugin: 'idea'
 
 group = 'org.suggs.sandbox.algorithms'
 
@@ -10,17 +10,13 @@ repositories {
     mavenCentral()
 }
 
-idea.module{
-	downloadSources = true
-}
-
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.5'
+    implementation libs.slf4j
 
-    runtime 'ch.qos.logback:logback-classic:1.0.13'
+    runtimeOnly libs.logback
 
-    testCompile 'junit:junit:4.11',
-        'org.mockito:mockito-core:1.9.5',
-            'org.assertj:assertj-core:1.6.1'
+    testImplementation libs.test.junit,
+        	libs.test.mockito,
+            libs.test.assertj
 }
 
